@@ -28,6 +28,8 @@ class block_tutorial_block extends block_base
 
     public function get_content()
     {
+        $allowHTML = get_config('block_tutorial_block', 'Allow_HTML');
+        var_dump($allowHTML);
         $this->content = new stdClass();
         $this->content->text = "Hello, <br> Je suis un block de test.";
         $this->content->footer = "Pied de block.";
