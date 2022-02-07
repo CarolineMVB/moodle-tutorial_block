@@ -1,0 +1,8 @@
+.block_tutorial_block .content {
+    font-weight: bold;
+    color: blue;
+}
+
+.block_tutorial_block .title {
+    color: yellow;
+}

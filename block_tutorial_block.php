@@ -29,8 +29,29 @@ class block_tutorial_block extends block_base
     public function get_content()
     {
         $this->content = new stdClass();
-        $this->content->text = "hello";
+        $this->content->text = "Hello, <br> Je suis un block de test.";
+        $this->content->footer = "Pied de block.";
+
+        if (!empty($this->config->text)) {
+            $this->content->text = $this->config->text;
+        }
+
         return $this->content;
+    }
+
+    public function specialization()
+    {
+        if (isset($this->config)) {
+            if (empty($this->config->title)) {
+                $this->title = get_string('defaulttitle', 'block_tutorial_block');
+            } else {
+                $this->title = $this->config->title;
+            }
+
+            if (empty($this->config->text)) {
+                $this->config->text = get - string('defaulttext', 'block_tutorial_block');
+            }
+        }
     }
 
     public function applicable_formats()
