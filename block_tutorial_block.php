@@ -29,22 +29,26 @@ class block_tutorial_block extends block_base
     // Cache le titre du block
     public function hide_header()
     {
-        return true;
+        return false;
     }
 
     public function get_content()
     {
         $this->content = new stdClass();
-        $this->content->text = "Hello, <br> Je suis un block de test.";
+        $text = "Hello, <br> Je suis un block de test.";
         $this->content->footer = "Pied de block.";
 
         if (!empty($this->config->text)) {
-            $this->content->text = $this->config->text;
+            $text = $this->config->text;
         }
 
         if (get_config('tutorial_block', 'Allow_HTML') == '0') {
-            $this->content->text = strip_tags($this->content->text);
+            $text = strip_tags($this->content->text);
         }
+
+        $content = new \block_tutorial_block\output\content($text);
+        $renderer = $this->page->get_renderer('block_tutorial_block');
+        $this->content->text = $renderer->render($content);
 
         return $this->content;
     }
