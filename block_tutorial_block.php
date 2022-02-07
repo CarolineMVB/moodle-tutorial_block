@@ -36,7 +36,7 @@ class block_tutorial_block extends block_base
     {
         $this->content = new stdClass();
         $text = "Hello, <br> Je suis un block de test.";
-        $this->content->footer = "Pied de block.";
+        $footer = "Pied de block.";
 
         if (!empty($this->config->text)) {
             $text = $this->config->text;
@@ -46,7 +46,7 @@ class block_tutorial_block extends block_base
             $text = strip_tags($this->content->text);
         }
 
-        $content = new \block_tutorial_block\output\content($text);
+        $content = new \block_tutorial_block\output\content($text, $footer);
         $renderer = $this->page->get_renderer('block_tutorial_block');
         $this->content->text = $renderer->render($content);
 
