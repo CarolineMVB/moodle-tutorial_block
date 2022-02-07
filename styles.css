@@ -1,8 +1,11 @@
 .block_tutorial_block .content {
     font-weight: bold;
-    color: blue;
+    color: white;
+    background-image: url([[pix:block_tutorial_block|gradient]]);
+    background-repeat: repeat;
+    background-size: cover;
 }
 
-.block_tutorial_block .title {
-    color: yellow;
+.block_tutorial_block .footer {
+    color: white;
 }

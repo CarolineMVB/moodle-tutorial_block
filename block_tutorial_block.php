@@ -26,16 +26,24 @@ class block_tutorial_block extends block_base
         return true;
     }
 
+    // Cache le titre du block
+    public function hide_header()
+    {
+        return true;
+    }
+
     public function get_content()
     {
-        $allowHTML = get_config('block_tutorial_block', 'Allow_HTML');
-        var_dump($allowHTML);
         $this->content = new stdClass();
         $this->content->text = "Hello, <br> Je suis un block de test.";
         $this->content->footer = "Pied de block.";
 
         if (!empty($this->config->text)) {
             $this->content->text = $this->config->text;
+        }
+
+        if (get_config('tutorial_block', 'Allow_HTML') == '0') {
+            $this->content->text = strip_tags($this->content->text);
         }
 
         return $this->content;
@@ -54,6 +62,15 @@ class block_tutorial_block extends block_base
                 $this->config->text = get - string('defaulttext', 'block_tutorial_block');
             }
         }
+    }
+
+    public function instance_config_save($data, $nolongerused = false)
+    {
+        if (get_config('tutorial_block', 'Allow_HTML') == '0') {
+            $data->text = strip_tags($data->text);
+        }
+        // Et maintenant, passez à l'implémentation par défaut définie dans la classe parent
+        return parent::instance_config_save($data, $nolongerused);
     }
 
     public function applicable_formats()
