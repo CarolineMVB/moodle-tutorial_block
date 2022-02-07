@@ -3,3 +3,4 @@
 $string['pluginname'] = 'Tutorial block';
 $string['blockstring'] = 'Modifier le contenu du block :';
 $string['blocktitle'] = 'Modifier le titre du block :';
+$string['tutorial_block:addinstance'] = 'Ajouter un bloc Tutorial Block';
