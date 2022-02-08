@@ -16,7 +16,7 @@ class block_tutorial_block_edit_form extends block_edit_form
 
         // MODIFIER LE CONTENU DU BLOC
         // Un exemple de variable de chaîne avec une valeur par défaut.
-        $mform->addElement('textarea', 'config_text', get_string('blockstring', 'block_tutorial_block'), array('rows' => 17, 'cols' => 100, 'class' => 'smalltext'));
+        $mform->addElement('editor', 'config_text', get_string('blockstring', 'block_tutorial_block'), array('rows' => 17, 'cols' => 100, 'class' => 'smalltext'));
         $mform->setDefault('config_text', 'Contenu du bloc');
         $mform->setType('config_text', PARAM_RAW);
 

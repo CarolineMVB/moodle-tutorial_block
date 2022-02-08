@@ -2,11 +2,18 @@ hello from mustache
 
 {{{ montexte }}}
 
+{{! Image insérée dans le code }}
 <div class="img">
 {{#pix}}logo, block_tutorial_block, Logo block{{/pix}}
 </div>
 
+{{! Image insérée par l'utilisateur }}
+{{#picture}} {{! Si il y a picture alors l'image s'affiche}}
 <img src="{{picture}}">
+{{/picture}}
+
+{{! 'nomvariable = Si il y a nomvariable }}
+{{! 'nomvariable = Si il n'y a pas nomvariable }}
 
 <footer>
     {{>block_tutorial_block/footer}}

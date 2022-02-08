@@ -1,4 +1,7 @@
 <?php
+
+require_once "locallib.php";
+
 // block_tutorial_block.php
 
 defined('MOODLE_INTERNAL') || die();
@@ -34,41 +37,23 @@ class block_tutorial_block extends block_base
 
     public function get_content()
     {
-
         $this->content = new stdClass();
         $text = "Hello, <br> Je suis un block de test.";
         $footer = "Pied de block.";
 
-        if (!empty($this->config->text)) {
-            $text = $this->config->text;
+        var_dump($this->config->text['text']);
+
+        if (!empty($this->config->text['text'])) {
+            $text = $this->config->text['text'];
         }
 
         if (get_config('tutorial_block', 'Allow_HTML') == '0') {
             $text = strip_tags($this->content->text);
         }
 
-        $fs = get_file_storage();
-
-        $fileinfo = array(
-            'component' => 'block_tutorial_block', // usually = table name
-            'filearea' => 'modelfile', // usually = table name
-            'itemid' => 0, // usually = ID of row in table
-            'contextid' => $this->context->id, // ID of context
-            'filepath' => '/', // any path beginning and ending in /
-            'filename' => 'logo.png'); // any filename
-
-        $file = $fs->get_file($fileinfo['contextid'], $fileinfo['component'], $fileinfo['filearea'],
-            $fileinfo['itemid'], $fileinfo['filepath'], $fileinfo['filename']);
-
-        if ($file) {
-            $picture = moodle_url::make_pluginfile_url(
-                $this->context->id,
-                'block_tutorial_block',
-                'modelfile',
-                $file->get_itemid(),
-                $file->get_filepath(),
-                $file->get_filename()
-            );
+        $picture = null;
+        if (isset($this->config->modelfile)) {
+            $picture = add_picture($this->config->modelfile, $this->context->id);
         }
 
         $content = new \block_tutorial_block\output\content($text, $picture, $footer);

@@ -4,32 +4,32 @@ defined('MOODLE_INTERNAL') || die();
 
 function block_tutorial_block_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array())
 {
-    // Make sure the filearea is one of those used by the plugin.
+    // Assurez-vous que le filearea est l'un de ceux utilisés par le plugin.
     if ($filearea !== 'modelfile') {
         return false;
     }
 
-    // Leave this line out if you set the itemid to null in make_pluginfile_url (set $itemid to 0 instead).
-    $itemid = array_shift($args); // The first item in the $args array.
+    // Laissez cette ligne de côté si vous définissez l'itemid à null dans make_pluginfile_url (définissez $itemid à 0 à la place).
+    $itemid = array_shift($args); // Le premier élément du tableau $args.
 
-    // Use the itemid to retrieve any relevant data records and perform any security checks to see if the
-    // user really does have access to the file in question.
+    // Utiliser l'itemid pour récupérer tout enregistrement de données pertinent et effectuer tout contrôle de sécurité pour vérifier si l'utilisateur a réellement accès au fichier en question.
+    // l'utilisateur a réellement accès au fichier en question.
 
-    // Extract the filename / filepath from the $args array.
-    $filename = array_pop($args); // The last item in the $args array.
+    // Extrait le nom de fichier / le chemin d'accès au fichier à partir du tableau $args.
+    $filename = array_pop($args); // Le dernier élément dans le tableau $args.
     if (!$args) {
-        $filepath = '/'; // $args is empty => the path is '/'
+        $filepath = '/'; // $args est vide => le chemin est '/'.
     } else {
-        $filepath = '/' . implode('/', $args) . '/'; // $args contains elements of the filepath
+        $filepath = '/' . implode('/', $args) . '/'; // $args contient des éléments du chemin de fichier
     }
 
-    // Retrieve the file from the Files API.
+    // Récupérer le fichier à partir de l'API Fichiers.
     $fs = get_file_storage();
     $file = $fs->get_file($context->id, 'block_tutorial_block', $filearea, $itemid, $filepath, $filename);
     if (!$file) {
-        return false; // The file does not exist.
+        return false; // Le fichier n'existe pas.
     }
 
-    // We can now send the file back to the browser - in this case with a cache lifetime of 1 day and no filtering.
+    // Nous pouvons maintenant renvoyer le fichier au navigateur, dans ce cas avec une durée de vie du cache de 1 jour et sans filtrage.
     send_stored_file($file, 86400, 0, $forcedownload, $options);
 }
