@@ -12,11 +12,13 @@ class content implements renderable, templatable
 {
     public $text;
     public $footer;
+    public $picture;
 
-    public function __construct($text, $footer)
+    public function __construct($text, $picture, $footer)
     {
         $this->text = $text;
         $this->footer = $footer;
+        $this->picture = $picture;
     }
 
     public function export_for_template(renderer_base $output)
@@ -24,6 +26,7 @@ class content implements renderable, templatable
         $data = array(
             'montexte' => $this->text,
             'footer' => $this->footer,
+            'picture' => $this->picture,
         );
         return $data;
     }

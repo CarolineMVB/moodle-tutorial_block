@@ -1,5 +1,7 @@
 <?php
 
+defined('MOODLE_INTERNAL') || die();
+
 class block_tutorial_block_edit_form extends block_edit_form
 {
     protected function specific_definition($mform)
@@ -17,6 +19,9 @@ class block_tutorial_block_edit_form extends block_edit_form
         $mform->addElement('textarea', 'config_text', get_string('blockstring', 'block_tutorial_block'), array('rows' => 17, 'cols' => 100, 'class' => 'smalltext'));
         $mform->setDefault('config_text', 'Contenu du bloc');
         $mform->setType('config_text', PARAM_RAW);
+
+        //MODIFIER L'IMAGE DU BLOC
+        $mform->addElement('filepicker', 'config_modelfile', get_string('file'), null, ['accepted_types' => '*']);
 
         // MODIFIER LE FOOTER DU BLOC
         $mform->addElement('text', 'config_footer', get_string('blockfooter', 'block_tutorial_block'));
